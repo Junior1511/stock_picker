@@ -1,18 +1,15 @@
 def stock_picker (array)
-  buy = []
-  sell = []
-  profit = 0
-  array.each_with_index do |num, index|
-    if index == 0
-      buy = [num,index]
-      # day 1 no profit cause you cant sell
-    elsif num < buy[0]
-      buy = [num,index]
-    elsif num > buy[0]
-      sell << [num,index]
-      profit = sell[0]-buy[0]
+  lowest = []
+  profits = []
+  array.each_with_index do |number,day|
+    if day == 0 
+      lowest << [number,day]
+    elsif number < lowest.last.first
+      lowest << [number,day]
+    elsif number > lowest.last.first
+      profits << [(number - lowest.last.first), lowest.last.last, day]
     end
   end
-  return [buy[1],sell[1]]
+  p [profits.max[1],profits.max[2]]
 end
-p stock_picker([17,3,6,9,15,8,6,1,10])
+ stock_picker([17,3,6,9,15,8,6,1,10])
